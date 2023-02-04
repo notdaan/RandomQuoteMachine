@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css"
+import React from "react";
+import quotes from "./quotes"
+import colours from "./colours"
+import QuoteAndAuth from "./quoteandAuth";
 
-function App() {
+export default class App extends React.Component {
+
+  state = {
+    quote: quotes[0].quote,
+    author: quotes[0].author,
+  }
+
+  getQuote = () => {
+    let randQuoteNum = Math.floor(Math.random() * quotes.length);
+    let randColourNum = Math.floor(Math.random() * colours.length);
+    console.log(randColourNum)
+    console.log(randQuoteNum)
+    let randQuote = quotes[randQuoteNum];
+    let randColour = colours[randColourNum];
+    console.log(randColour)
+
+    this.setState({
+      author: randQuote.author,
+      quote: randQuote.quote,
+      bgcolor: randColour
+  })
+};
+  render() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="quote-wrapper">
+      <QuoteAndAuth 
+        getQuote={this.getQuote}
+        quote={this.state}
+        />
     </div>
   );
+};
 }
-
-export default App;
+          
